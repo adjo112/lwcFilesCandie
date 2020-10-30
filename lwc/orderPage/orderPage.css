@@ -1,0 +1,13 @@
+
+.btnClass:hover{
+    background-color: white;
+}
+.card{
+    background:linear-gradient(bottom,#33ccff 0%,#ff99cc 100%)
+}
+.imgClass:hover{
+    width:110px;
+    height:110px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}

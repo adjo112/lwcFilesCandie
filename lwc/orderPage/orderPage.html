@@ -1,0 +1,127 @@
+<template>
+    <lightning-card>
+        <lightning-breadcrumbs>
+            <lightning-breadcrumb
+                label="Home"
+                 href="https://brilliosuhana-dev-ed.lightning.force.com/lightning/n/Candies_Online"
+               >
+            </lightning-breadcrumb>
+            <lightning-breadcrumb
+                label={Name} onclick={navigateToDetailsPage}>
+            </lightning-breadcrumb>
+            <lightning-breadcrumb
+                label=CheckOut>
+            </lightning-breadcrumb>
+            <lightning-breadcrumb
+                label=Shipping>
+            </lightning-breadcrumb>
+            <lightning-breadcrumb
+                label=Payment>
+            </lightning-breadcrumb>
+        </lightning-breadcrumbs>
+    <div class="c-container">
+    <lightning-layout vertical-align="stretch" multiple-rows="true" class="x-large">
+        <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box" size="6">
+            <h1><b>Contact Information</b></h1> <lightning-input placeholder="Enter Email" style="width:300px" value={rec.Email} onchange={handleEmailChange} required="true"></lightning-input><br/>
+            <lightning-input type="checkbox" label="keep me up to date on news and exclusive offers"></lightning-input><br/>
+            <h1><b>Shipping Address</b></h1><br/>
+            <lightning-layout>
+                <lightning-layout-item>
+                    <lightning-input placeholder="First Name" value={rec.FirstName}  onchange={handleFnameChange} class="btnClass" required="true"></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-input placeholder="Last Name" value={rec.LastName} onchange={handleLnameChange} class="btnClass" required="true"></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-layout>
+                <lightning-layout-item>
+                    <lightning-input placeholder="Address" value={address} onchange={handleAddress} class="btnClass" required="true"></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-input placeholder="City" value={city} onchange={handleCity} required="true" class="btnClass"></lightning-input><br/>
+                </lightning-layout-item>
+            </lightning-layout>
+            <h1><b>Payment Details</b></h1>
+            <lightning-combobox
+            value={paymentMode}
+            style="width:300px"
+            placeholder="Select Payment Method"
+            options={payment}
+            onchange={handlePayment}
+            ></lightning-combobox>
+            <template if:true={debitPay}>
+                <lightning-input placeholder="Enter 3 Digit CVV" style="width:200px" class="btnClass"></lightning-input>
+            </template>
+            <template if:true={pay}>
+                <lightning-input placeholder="Enter 10 Digit Phone Number/BHUM UPI" style="width:300px" class="btnClass"></lightning-input>
+            </template>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box" size="6">
+            <div class="demo-only" style="display:flex;width:26rem;height:20.5rem">
+            <div class="slds-split-view_container slds-is-open">
+            <article aria-hidden="false" id="split-view-id2" class="slds-split-view slds-grid slds-grid_vertical slds-grow">
+                <header class="slds-split-view__header">
+                    <div class="slds-grid slds-wrap">
+                        <span class="slds-truncate slds-text-body_regular slds-text-color_default"><img src={Image} height="50px;" width="50px;" class="imgClass"/></span><br/>
+                    </div>
+                    </header>
+                    <ul aria-multiselectable="true" class="slds-scrollable_y" role="listbox" aria-label="Select an item to open it in a new workspace tab.">
+                    <li class="slds-split-view__list-item" role="presentation">
+                        <a href="javascript:void(0);" aria-selected="false" role="option" class="slds-split-view__list-item-action slds-grow slds-has-flexi-truncate" tabindex="-1">
+                            <div class="slds-grid slds-wrap">
+                              <span class="slds-truncate slds-text-body_regular slds-text-color_default" title={Name}>{Name}</span>
+                              <span class="slds-truncate slds-col_bump-left">${Price}</span>
+                            </div>
+                            <div class="slds-grid slds-wrap">
+                                <span class="slds-truncate" title="Quantity">Quantity</span>
+                                <span class="slds-truncate slds-col_bump-left">{Count}</span>
+                            </div>
+                          </a>
+                    </li>
+                    <li class="slds-split-view__list-item" role="presentation">
+                        <a href="javascript:void(0);" aria-selected="false" role="option" class="slds-split-view__list-item-action slds-grow slds-has-flexi-truncate" tabindex="-1">
+                            <div class="slds-grid slds-wrap">
+                               <lightning-combobox
+                                value={reward}
+                                placeholder="Gift Card or Discount Code"
+                                options={options}
+                                onchange={handleChange}
+                                 ></lightning-combobox>
+                              <span class="slds-truncate slds-col_bump-left"><lightning-button label="Apply" variant="brand" onclick={handleClick}></lightning-button></span>
+                              <template if:true={flag}>
+                                  Reward Claim:{reward}
+                              </template>       
+                            </div>
+                            <br/>
+                        </a>
+                    </li>
+                    <li class="slds-split-view__list-item" role="presentation">
+                        <a href="javascript:void(0);" aria-selected="false" role="option" class="slds-split-view__list-item-action slds-grow slds-has-flexi-truncate" tabindex="-1">
+                            <div class="slds-grid slds-wrap">
+                              <span class="slds-truncate slds-text-body_regular slds-text-color_default" title="Subtotal">Subtotal</span>
+                              <span class="slds-truncate slds-col_bump-left"><code>${subtotal}</code></span><br/>
+                            </div>
+                            <div class="slds-grid slds-wrap">
+                              <span class="slds-truncate" title="Shipping">Shipping</span>
+                              <span class="slds-truncate slds-col_bump-left">$10</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="slds-split-view__list-item" role="presentation">
+                        <a href="javascript:void(0);" aria-selected="false" role="option" class="slds-split-view__list-item-action slds-grow slds-has-flexi-truncate" tabindex="-1">
+                            <div class="slds-grid slds-wrap">
+                              <span class="slds-truncate slds-text-body_regular slds-text-color_default" title="Total">Total Amount</span>
+                              <span class="slds-truncate slds-col_bump-left"><code>${total}</code></span><br/><br/>
+                            </div>
+                        </a>
+                    </li>
+                    </ul>
+            </article>
+            <lightning-button class="btnClass" onclick={submitOrder} label="Order" variant="brand"></lightning-button>
+            </div>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</div>
+</lightning-card>
+</template>

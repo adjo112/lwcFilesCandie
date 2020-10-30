@@ -1,0 +1,45 @@
+<template>
+    <lightning-card>
+        <lightning-button label="Reset" variant="brand" onclick={resethandler} class="slds-float_right slds-p-right_xx-small"></lightning-button><br/>
+        <lightning-input type="search" class="slds-p-left_xx-small slds-p-right_xx-small" onchange={handleTextChange} value={searchKey} label="Search store"></lightning-input>
+  
+              <!--Load categories from apex in Select List -->
+              <div class="slds-m-around_medium">
+                <div class="slds-p-top_small">            
+        <template if:true={categoriesOptionList}>
+            <lightning-combobox
+            name="progress"
+            label="Categories"
+            value={value}
+            placeholder="Select"
+            options={categoriesOptionList}
+            onchange={handleCategoryChange} ></lightning-combobox>
+        </template>
+        </div>
+         <!--Load brands from apex in Select List -->
+         <div class="slds-p-top_small"> 
+            <template if:true={brandOptionList}>
+                <lightning-combobox
+                name="progress"
+                label="Brands"
+                value={value}
+                placeholder="Select"
+                options={brandOptionList}
+                onchange={handleBrandChange} ></lightning-combobox>
+            </template>
+        </div>
+             <!--Load makers from apex in Select List -->
+             <div class="slds-p-top_small">    
+        <template if:true={makersOptionList}>
+            <lightning-combobox
+            name="progress"
+            label="Manufacturer"
+            value={value}
+            placeholder="Select"
+            options={makersOptionList}
+            onchange={handleMakerChange} ></lightning-combobox>           
+        </template>
+    </div>
+    </div>
+    </lightning-card>
+</template>
